@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RoundedView">
+        <attr name="roundedViewRadius" format="dimension" />
+        <attr name="roundedViewTopLeftRadius" format="dimension" />
+        <attr name="roundedViewTopRightRadius" format="dimension" />
+        <attr name="roundedViewBottomLeftRadius" format="dimension" />
+        <attr name="roundedViewBottomRightRadius" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="RoundedConstraintLayout">
+        <attr name="roundedConstraintLayoutRadius" format="dimension" />
+        <attr name="roundedConstraintLayoutTopLeftRadius" format="dimension" />
+        <attr name="roundedConstraintLayoutTopRightRadius" format="dimension" />
+        <attr name="roundedConstraintLayoutBottomLeftRadius" format="dimension" />
+        <attr name="roundedConstraintLayoutBottomRightRadius" format="dimension" />
+    </declare-styleable>
+</resources>
