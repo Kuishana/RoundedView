@@ -17,13 +17,14 @@ class RoundedView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : V
 
     init {
         attrs?.let {
-            context.obtainStyledAttributes(it, R.styleable.RoundedView).apply {
+            context.obtainStyledAttributes(it, R.styleable.RoundedView).run {
                 val radius = getDimension(R.styleable.RoundedView_roundedViewRadius, 0.0f)
                 topLeftRadius = getDimension(R.styleable.RoundedView_roundedViewTopLeftRadius, radius)
                 topRightRadius = getDimension(R.styleable.RoundedView_roundedViewTopRightRadius, radius)
                 bottomLeftRadius = getDimension(R.styleable.RoundedView_roundedViewBottomLeftRadius, radius)
                 bottomRightRadius = getDimension(R.styleable.RoundedView_roundedViewBottomRightRadius, radius)
-            }.recycle()
+                recycle()
+            }
             if (topLeftRadius > 0.0f
                     || topRightRadius > 0.0f
                     || bottomLeftRadius > 0.0f
@@ -54,13 +55,11 @@ class RoundedView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : V
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        if (w > 0 && h > 0) {
-            path?.let {
-                it.rewind()
-                val radii = floatArrayOf(topLeftRadius, topLeftRadius, topRightRadius, topRightRadius
-                        , bottomRightRadius, bottomRightRadius, bottomLeftRadius, bottomLeftRadius)
-                it.addRoundRect(RectF(0.0f, 0.0f, w.toFloat(), h.toFloat()), radii, Path.Direction.CW)
-            }
+        path?.takeIf { w > 0 && h > 0 }?.run {
+            rewind()
+            val radii = floatArrayOf(topLeftRadius, topLeftRadius, topRightRadius, topRightRadius
+                    , bottomRightRadius, bottomRightRadius, bottomLeftRadius, bottomLeftRadius)
+            addRoundRect(RectF(0.0f, 0.0f, w.toFloat(), h.toFloat()), radii, Path.Direction.CW)
         }
     }
 
@@ -68,10 +67,12 @@ class RoundedView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : V
         if (null == path || null == paint) {
             super.draw(canvas)
         } else {
-            canvas.saveLayer(null, null, Canvas.ALL_SAVE_FLAG)
-            super.draw(canvas)
-            canvas.drawPath(path, paint)
-            canvas.restore()
+            canvas.run {
+                saveLayer(null, null, Canvas.ALL_SAVE_FLAG)
+                super.draw(this)
+                drawPath(path, paint)
+                restore()
+            }
         }
     }
 }

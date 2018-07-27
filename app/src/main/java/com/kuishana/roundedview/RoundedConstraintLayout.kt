@@ -18,13 +18,14 @@ class RoundedConstraintLayout(context: Context, attrs: AttributeSet?, defStyleAt
 
     init {
         attrs?.let {
-            context.obtainStyledAttributes(it, R.styleable.RoundedConstraintLayout).apply {
+            context.obtainStyledAttributes(it, R.styleable.RoundedConstraintLayout).run {
                 val radius = getDimension(R.styleable.RoundedConstraintLayout_roundedConstraintLayoutRadius, 0.0f)
                 topLeftRadius = getDimension(R.styleable.RoundedConstraintLayout_roundedConstraintLayoutTopLeftRadius, radius)
                 topRightRadius = getDimension(R.styleable.RoundedConstraintLayout_roundedConstraintLayoutTopRightRadius, radius)
                 bottomLeftRadius = getDimension(R.styleable.RoundedConstraintLayout_roundedConstraintLayoutBottomLeftRadius, radius)
                 bottomRightRadius = getDimension(R.styleable.RoundedConstraintLayout_roundedConstraintLayoutBottomRightRadius, radius)
-            }.recycle()
+                recycle()
+            }
             if (topLeftRadius > 0.0f
                     || topRightRadius > 0.0f
                     || bottomLeftRadius > 0.0f
@@ -55,13 +56,11 @@ class RoundedConstraintLayout(context: Context, attrs: AttributeSet?, defStyleAt
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        if (w > 0 && h > 0) {
-            path?.let {
-                it.rewind()
-                val radii = floatArrayOf(topLeftRadius, topLeftRadius, topRightRadius, topRightRadius
-                        , bottomRightRadius, bottomRightRadius, bottomLeftRadius, bottomLeftRadius)
-                it.addRoundRect(RectF(0.0f, 0.0f, w.toFloat(), h.toFloat()), radii, Path.Direction.CW)
-            }
+        path?.takeIf { w > 0 && h > 0 }?.run {
+            rewind()
+            val radii = floatArrayOf(topLeftRadius, topLeftRadius, topRightRadius, topRightRadius
+                    , bottomRightRadius, bottomRightRadius, bottomLeftRadius, bottomLeftRadius)
+            addRoundRect(RectF(0.0f, 0.0f, w.toFloat(), h.toFloat()), radii, Path.Direction.CW)
         }
     }
 
@@ -69,10 +68,12 @@ class RoundedConstraintLayout(context: Context, attrs: AttributeSet?, defStyleAt
         if (null == path || null == paint) {
             super.draw(canvas)
         } else {
-            canvas.saveLayer(null, null, Canvas.ALL_SAVE_FLAG)
-            super.draw(canvas)
-            canvas.drawPath(path, paint)
-            canvas.restore()
+            canvas.run {
+                saveLayer(null, null, Canvas.ALL_SAVE_FLAG)
+                super.draw(this)
+                drawPath(path, paint)
+                restore()
+            }
         }
     }
 }
