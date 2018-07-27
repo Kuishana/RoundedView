@@ -18,13 +18,13 @@ class RoundedConstraintLayout(context: Context, attrs: AttributeSet?, defStyleAt
 
     init {
         attrs?.let {
-            val attributes = context.obtainStyledAttributes(it, R.styleable.RoundedConstraintLayout)
-            val radius = attributes.getDimension(R.styleable.RoundedConstraintLayout_roundedConstraintLayoutRadius, 0.0f)
-            topLeftRadius = attributes.getDimension(R.styleable.RoundedConstraintLayout_roundedConstraintLayoutTopLeftRadius, radius)
-            topRightRadius = attributes.getDimension(R.styleable.RoundedConstraintLayout_roundedConstraintLayoutTopRightRadius, radius)
-            bottomLeftRadius = attributes.getDimension(R.styleable.RoundedConstraintLayout_roundedConstraintLayoutBottomLeftRadius, radius)
-            bottomRightRadius = attributes.getDimension(R.styleable.RoundedConstraintLayout_roundedConstraintLayoutBottomRightRadius, radius)
-            attributes.recycle()
+            context.obtainStyledAttributes(it, R.styleable.RoundedConstraintLayout).apply {
+                val radius = getDimension(R.styleable.RoundedConstraintLayout_roundedConstraintLayoutRadius, 0.0f)
+                topLeftRadius = getDimension(R.styleable.RoundedConstraintLayout_roundedConstraintLayoutTopLeftRadius, radius)
+                topRightRadius = getDimension(R.styleable.RoundedConstraintLayout_roundedConstraintLayoutTopRightRadius, radius)
+                bottomLeftRadius = getDimension(R.styleable.RoundedConstraintLayout_roundedConstraintLayoutBottomLeftRadius, radius)
+                bottomRightRadius = getDimension(R.styleable.RoundedConstraintLayout_roundedConstraintLayoutBottomRightRadius, radius)
+            }.recycle()
             if (topLeftRadius > 0.0f
                     || topRightRadius > 0.0f
                     || bottomLeftRadius > 0.0f

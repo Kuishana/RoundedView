@@ -17,13 +17,13 @@ class RoundedView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : V
 
     init {
         attrs?.let {
-            val attributes = context.obtainStyledAttributes(it, R.styleable.RoundedView)
-            val radius = attributes.getDimension(R.styleable.RoundedView_roundedViewRadius, 0.0f)
-            topLeftRadius = attributes.getDimension(R.styleable.RoundedView_roundedViewTopLeftRadius, radius)
-            topRightRadius = attributes.getDimension(R.styleable.RoundedView_roundedViewTopRightRadius, radius)
-            bottomLeftRadius = attributes.getDimension(R.styleable.RoundedView_roundedViewBottomLeftRadius, radius)
-            bottomRightRadius = attributes.getDimension(R.styleable.RoundedView_roundedViewBottomRightRadius, radius)
-            attributes.recycle()
+            context.obtainStyledAttributes(it, R.styleable.RoundedView).apply {
+                val radius = getDimension(R.styleable.RoundedView_roundedViewRadius, 0.0f)
+                topLeftRadius = getDimension(R.styleable.RoundedView_roundedViewTopLeftRadius, radius)
+                topRightRadius = getDimension(R.styleable.RoundedView_roundedViewTopRightRadius, radius)
+                bottomLeftRadius = getDimension(R.styleable.RoundedView_roundedViewBottomLeftRadius, radius)
+                bottomRightRadius = getDimension(R.styleable.RoundedView_roundedViewBottomRightRadius, radius)
+            }.recycle()
             if (topLeftRadius > 0.0f
                     || topRightRadius > 0.0f
                     || bottomLeftRadius > 0.0f
