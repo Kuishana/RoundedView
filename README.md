@@ -4,7 +4,7 @@
 ![圆角示例](https://github.com/Kuishana/RoundedView/blob/master/demo.png "示例")
 
 ## 使用
-将RoundedView复制到工程，将父类改为想要作圆角的类即可。
+将[RoundedView.kt](https://github.com/Kuishana/RoundedView/blob/master/app/src/main/java/com/kuishana/roundedview/RoundedView.kt)复制到工程，将父类改为想要作圆角的类即可。
 
 ## License
 
