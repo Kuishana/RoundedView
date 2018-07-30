@@ -45,7 +45,7 @@ class RoundedConstraintLayout(context: Context, attrs: AttributeSet?, defStyleAt
                     setWillNotDraw(false)
                     path = Path()
                     paint = Paint(Paint.ANTI_ALIAS_FLAG)
-                    paint?.xfermode = (PorterDuffXfermode(PorterDuff.Mode.DST_IN))
+                    paint?.xfermode = PorterDuffXfermode(PorterDuff.Mode.DST_IN)
                 }
             }
         }
@@ -58,9 +58,9 @@ class RoundedConstraintLayout(context: Context, attrs: AttributeSet?, defStyleAt
         super.onSizeChanged(w, h, oldw, oldh)
         path?.takeIf { w > 0 && h > 0 }?.run {
             rewind()
-            val radii = floatArrayOf(topLeftRadius, topLeftRadius, topRightRadius, topRightRadius
-                    , bottomRightRadius, bottomRightRadius, bottomLeftRadius, bottomLeftRadius)
-            addRoundRect(RectF(0.0f, 0.0f, w.toFloat(), h.toFloat()), radii, Path.Direction.CW)
+            addRoundRect(RectF(0.0f, 0.0f, w.toFloat(), h.toFloat())
+                    , floatArrayOf(topLeftRadius, topLeftRadius, topRightRadius, topRightRadius
+                    , bottomRightRadius, bottomRightRadius, bottomLeftRadius, bottomLeftRadius), Path.Direction.CW)
         }
     }
 
